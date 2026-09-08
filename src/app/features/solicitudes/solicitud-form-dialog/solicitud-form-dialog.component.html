@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar solicitud' : 'Nueva solicitud' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="solicitud-form" id="solicitud-form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo" maxlength="150" />
+      @if (form.controls.titulo.hasError('required')) {
+        <mat-error>El título es obligatorio</mat-error>
+      } @else if (form.controls.titulo.hasError('minlength')) {
+        <mat-error>Mínimo 3 caracteres</mat-error>
+      } @else if (form.controls.titulo.hasError('maxlength')) {
+        <mat-error>Máximo 150 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" rows="3" maxlength="1000"></textarea>
+      @if (form.controls.descripcion.hasError('maxlength')) {
+        <mat-error>Máximo 1000 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Técnico</mat-label>
+      <mat-select formControlName="tecnico_id">
+        @for (tecnico of data.tecnicos; track tecnico.id) {
+          <mat-option [value]="tecnico.id">{{ tecnico.nombre }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.tecnico_id.hasError('required')) {
+        <mat-error>Selecciona un técnico</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de servicio</mat-label>
+      <mat-select formControlName="tipo_servicio_id">
+        @for (tipo of data.tiposServicio; track tipo.id) {
+          <mat-option [value]="tipo.id">{{ tipo.nombre }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.tipo_servicio_id.hasError('required')) {
+        <mat-error>Selecciona un tipo de servicio</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado">
+        @for (estado of estados; track estado.value) {
+          <mat-option [value]="estado.value">{{ estado.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prioridad</mat-label>
+      <mat-select formControlName="prioridad">
+        @for (prioridad of prioridades; track prioridad.value) {
+          <mat-option [value]="prioridad.value">{{ prioridad.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="dialogRef.close()">Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    form="solicitud-form"
+    type="submit"
+    [disabled]="form.invalid || submitting()"
+  >
+    {{ isEdit ? 'Guardar' : 'Crear' }}
+  </button>
+</mat-dialog-actions>

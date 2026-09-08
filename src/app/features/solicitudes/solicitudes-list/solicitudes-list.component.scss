@@ -1,0 +1,79 @@
+:host {
+  display: block;
+  padding: 16px 24px 32px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  mat-form-field {
+    width: 200px;
+  }
+
+  .search-field {
+    width: 280px;
+  }
+
+  button {
+    height: 56px;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+.solicitudes-table {
+  width: 100%;
+}
+
+.prioridad-cell {
+  text-transform: capitalize;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 64px 16px;
+  color: var(--mat-sys-on-surface-variant);
+
+  mat-icon {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+  }
+}
+
+::ng-deep {
+  .chip-pendiente {
+    --mat-chip-label-text-color: #7a4a00;
+    background-color: #ffe4a3 !important;
+  }
+
+  .chip-en-progreso {
+    --mat-chip-label-text-color: #0d3c78;
+    background-color: #bcdcff !important;
+  }
+
+  .chip-completada {
+    --mat-chip-label-text-color: #1c4d2b;
+    background-color: #c3ecc9 !important;
+  }
+
+  .chip-cancelada {
+    --mat-chip-label-text-color: #4a4a4a;
+    background-color: #e0e0e0 !important;
+  }
+}
